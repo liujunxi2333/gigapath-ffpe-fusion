@@ -1,0 +1,26 @@
+# ── 核心依赖 ──
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+Pillow>=9.5.0
+
+# ── WSI 处理 ──
+openslide-python>=1.3.0
+tifffile>=2024.1.0
+
+# ── GigaPath 相关 ──
+timm>=0.9.0
+huggingface_hub>=0.20.0
+
+# ── Diffusion-FFPE 相关 ──
+diffusers>=0.25.1
+transformers>=4.36.0
+accelerate>=0.25.0
+peft>=0.10.0
+safetensors>=0.4.0
+
+# ── 图像质量评估（可选） ──
+antialiased-cnns
+gdown
+clean-fid
+lpips

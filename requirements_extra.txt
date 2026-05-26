@@ -1,0 +1,8 @@
+# 融合项目额外依赖（在 gigapath 环境基础上）
+# 安装: pip install -r requirements_extra.txt
+antialiased-cnns
+gdown
+clean-fid
+lpips
+peft>=0.10.0
+diffusers>=0.25.1

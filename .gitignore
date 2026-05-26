@@ -1,0 +1,39 @@
+# ── Python ──
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ── 运行输出 ──
+runs/
+logs/
+*.npy
+*.pt
+
+# ── 模型权重（不提交） ──
+checkpoints/
+*.pkl
+*.pth
+*.bin
+*.safetensors
+
+# ── IDE ──
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+
+# ── 环境 ──
+.env
+.venv/
+venv/
+
+# ── Jupyter ──
+.ipynb_checkpoints/
