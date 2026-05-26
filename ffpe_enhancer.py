@@ -37,11 +37,16 @@ logging.basicConfig(
 )
 logger = logging.getLogger("ffpe_enhancer")
 
+# ── Vendor packages ──────────────────────────────────────────────────
+_VENDOR_DIR = Path(__file__).resolve().parent / "vendor"
+if str(_VENDOR_DIR) not in sys.path:
+    sys.path.insert(0, str(_VENDOR_DIR))
+
 # ── 路径常量 ────────────────────────────────────────────────────────
-DEFAULT_FFPE_REPO = Path("/public/home/wang/liujx/Diffusion-FFPE-main")
-DEFAULT_PRETRAINED = DEFAULT_FFPE_REPO / "checkpoints" / "model.pkl"
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_PRETRAINED = PROJECT_ROOT / "weights" / "model.pkl"
 DEFAULT_SD_TURBO = "stabilityai/sd-turbo"
-SD_TURBO_LOCAL = Path("/public/home/wang/share_group_folder_wang/sd-turbo")
+SD_TURBO_LOCAL = PROJECT_ROOT / "weights" / "sd-turbo"
 
 
 class FFPEEnhancer:
@@ -75,10 +80,6 @@ class FFPEEnhancer:
 
         # 自动切换本地 SD-Turbo（离线可用）
         self.model_path = self._resolve_model_path(model_path)
-
-        # 确保 Diffusion-FFPE 在 Python path
-        if str(DEFAULT_FFPE_REPO) not in sys.path:
-            sys.path.insert(0, str(DEFAULT_FFPE_REPO))
 
         # 加载模型
         logger.info("加载 Diffusion-FFPE 模型: %s", pretrained_path)

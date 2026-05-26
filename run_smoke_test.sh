@@ -24,11 +24,11 @@ OUTPUT_DIR="${OUTPUT_DIR:-./runs/smoke_test}"
 module load gcc-toolset/12 2>/dev/null || true
 source /public/home/wang/liujx/miniconda3/bin/activate gigapath
 
-export PYTHONPATH="/public/home/wang/liujx/prov-gigapath-main:/public/home/wang/liujx/prov-gigapath-improveV4:/public/home/wang/liujx/Diffusion-FFPE-main:${SCRIPT_DIR}:${PYTHONPATH:-}"
+export PYTHONPATH="${SCRIPT_DIR}:${PYTHONPATH:-}"
 unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY all_proxy ALL_PROXY
 
 # 离线 SD-Turbo
-if [ -f "/public/home/wang/share_group_folder_wang/sd-turbo/scheduler/scheduler_config.json" ]; then
+if [ -f "${SCRIPT_DIR}/weights/sd-turbo/scheduler/scheduler_config.json" ]; then
     export HF_HUB_OFFLINE=1
 fi
 

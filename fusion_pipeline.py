@@ -42,19 +42,19 @@ logging.basicConfig(
 )
 logger = logging.getLogger("fusion_pipeline")
 
-# ── 路径常量 ────────────────────────────────────────────────────────
+# ── Vendor packages ──────────────────────────────────────────────────
+# Make vendored gigapath & diffusion_ffpe importable
+_VENDOR_DIR = Path(__file__).resolve().parent / "vendor"
+if str(_VENDOR_DIR) not in sys.path:
+    sys.path.insert(0, str(_VENDOR_DIR))
+
 PROJECT_ROOT = Path(__file__).resolve().parent
-IMPROVEV4_ROOT = Path("/public/home/wang/liujx/prov-gigapath-improveV4")
-GIGAPATH_ROOT = Path("/public/home/wang/liujx/prov-gigapath-main")
 
 # 模型权重默认路径
-DEFAULT_TILE_WEIGHT = "/public/home/wang/liujx/pytorch_model.bin"
-DEFAULT_SLIDE_WEIGHT = "/public/home/wang/liujx/slide_encoder.pth"
-
-# 确保依赖在 Python path
-for _p in [str(IMPROVEV4_ROOT), str(GIGAPATH_ROOT), str(PROJECT_ROOT)]:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+DEFAULT_TILE_WEIGHT = "./weights/pytorch_model.bin"
+DEFAULT_SLIDE_WEIGHT = "./weights/slide_encoder.pth"
+DEFAULT_FFPE_WEIGHT = "./weights/model.pkl"
+DEFAULT_SD_TURBO = "stabilityai/sd-turbo"
 
 
 def setup_paths():
@@ -107,7 +107,7 @@ def scan_tissue_coords(
     Returns:
         List[(x0, y0)] level-0 对齐的组织瓦片坐标。
     """
-    from parallel_improve2.wsi_embed.coords import compute_tissue_coords_parallel_strips_gpu
+    from coords import compute_tissue_coords_parallel_strips_gpu
 
     logger.info("扫描组织坐标: %s", os.path.basename(slide_path))
 
@@ -123,7 +123,7 @@ def scan_tissue_coords(
         )
     except Exception:
         logger.warning("GPU 扫描失败，回退 CPU 扫描")
-        from parallel_improve2.wsi_embed.coords import compute_tissue_coords_vectorized
+        from coords import compute_tissue_coords_vectorized
         coords, _ = compute_tissue_coords_vectorized(slide_path, tile_size=tile_size, target_level=target_level, bg_threshold=bg_threshold, scan_step=scan_step)
 
     logger.info("检测到 %d 个组织瓦片", len(coords))

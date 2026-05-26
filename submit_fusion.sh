@@ -42,7 +42,7 @@ DEVICE_SLIDE="${DEVICE_SLIDE:-cuda:1}"
 module load gcc-toolset/12
 source /public/home/wang/liujx/miniconda3/bin/activate gigapath
 
-export PYTHONPATH="/public/home/wang/liujx/prov-gigapath-main:/public/home/wang/liujx/prov-gigapath-improveV4:/public/home/wang/liujx/Diffusion-FFPE-main:${BASE}:${PYTHONPATH:-}"
+export PYTHONPATH="${BASE}:${PYTHONPATH:-}"
 unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY all_proxy ALL_PROXY
 
 if [ -f "/public/home/wang/share_group_folder_wang/sd-turbo/scheduler/scheduler_config.json" ]; then
